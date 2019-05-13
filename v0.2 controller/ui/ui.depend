@@ -1,0 +1,16 @@
+# depslib dependency file v1.0
+1557389357 source:e:\软件工程\代码\ui\ui\print_info.c
+	<stdio.h>
+
+1557394311 source:e:\软件工程\代码\ui\ui\terminal.c
+	<stdio.h>
+	"controller.h"
+	"print_info.h"
+
+1557394444 e:\软件工程\代码\ui\ui\controller.h
+	<stdio.h>
+	<pthread.h>
+
+1557389357 e:\软件工程\代码\ui\ui\print_info.h
+	<stdio.h>
+
