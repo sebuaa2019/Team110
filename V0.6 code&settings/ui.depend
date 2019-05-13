@@ -1,0 +1,130 @@
+# depslib dependency file v1.0
+1557405437 source:f:\课程资源\软件工程\代码\ui\print_info.c
+	<stdio.h>
+	<io.h>
+
+1557405372 source:f:\课程资源\软件工程\代码\ui\terminal.c
+	<stdio.h>
+	"controller.h"
+	"print_info.h"
+	"sys_setting.h"
+
+1557405351 f:\课程资源\软件工程\代码\ui\controller.h
+	<stdio.h>
+	<pthread.h>
+
+1557403445 f:\课程资源\软件工程\代码\ui\print_info.h
+	<stdio.h>
+
+1557405520 f:\课程资源\软件工程\代码\ui\sys_setting.h
+	"print_info.h"
+
+1557405437 source:c:\users\周萌\desktop\ui2\print_info.c
+	<stdio.h>
+	<io.h>
+
+1557471229 source:c:\users\周萌\desktop\ui2\terminal.c
+	<stdio.h>
+	"controller.h"
+	"print_info.h"
+	"sys_setting.h"
+
+1557469980 c:\users\周萌\desktop\ui2\controller.h
+
+1557470844 c:\users\周萌\desktop\ui2\safety.h
+
+1557403445 c:\users\周萌\desktop\ui2\print_info.h
+	<stdio.h>
+
+1557470902 c:\users\周萌\desktop\ui2\sys_setting.h
+	"print_info.h"
+	"safety.h"
+
+1557470308 source:c:\users\周萌\desktop\ui2\safety.c
+	<stdio.h>
+	"safety.h"
+
+1557470396 source:c:\users\周萌\desktop\ui2\controller.c
+	<stdio.h>
+	<pthread.h>
+	"controller.h"
+	"safety.h"
+
+1557470396 source:c:\users\hp\desktop\ui2\controller.c
+	<stdio.h>
+	<pthread.h>
+	"controller.h"
+	"safety.h"
+
+1557469980 c:\users\hp\desktop\ui2\controller.h
+
+1557470844 c:\users\hp\desktop\ui2\safety.h
+
+1557492016 source:c:\users\hp\desktop\ui2\print_info.c
+	<stdio.h>
+	<io.h>
+
+1557493180 source:c:\users\hp\desktop\ui2\terminal.c
+	<stdio.h>
+	"controller.h"
+	"print_info.h"
+	"sys_setting.h"
+	"user_management.h"
+
+1557403445 c:\users\hp\desktop\ui2\print_info.h
+	<stdio.h>
+
+1557470902 c:\users\hp\desktop\ui2\sys_setting.h
+	"print_info.h"
+	"safety.h"
+
+1557471676 source:c:\users\hp\desktop\ui2\safety.c
+	<stdio.h>
+	"safety.h"
+
+1557493131 c:\users\hp\desktop\ui2\user_management.h
+
+1557493480 source:c:\users\hp\desktop\ui2\user_management.c
+	<stdio.h>
+	<string.h>
+	"user_management.h"
+
+1557470396 source:f:\课程资源\软件工程\代码\v1.5\controller.c
+	<stdio.h>
+	<pthread.h>
+	"controller.h"
+	"safety.h"
+
+1557469980 f:\课程资源\软件工程\代码\v1.5\controller.h
+
+1557470844 f:\课程资源\软件工程\代码\v1.5\safety.h
+
+1557471676 source:f:\课程资源\软件工程\代码\v1.5\safety.c
+	<stdio.h>
+	"safety.h"
+
+1557493861 source:f:\课程资源\软件工程\代码\v1.5\user_management.c
+	<stdio.h>
+	<string.h>
+	"user_management.h"
+
+1557493131 f:\课程资源\软件工程\代码\v1.5\user_management.h
+
+1557747609 source:f:\课程资源\软件工程\代码\v1.5\print_info.c
+	<stdio.h>
+	<io.h>
+
+1557747609 source:f:\课程资源\软件工程\代码\v1.5\terminal.c
+	<stdio.h>
+	"controller.h"
+	"print_info.h"
+	"sys_setting.h"
+	"user_management.h"
+
+1557403445 f:\课程资源\软件工程\代码\v1.5\print_info.h
+	<stdio.h>
+
+1557747653 f:\课程资源\软件工程\代码\v1.5\sys_setting.h
+	"print_info.h"
+	"safety.h"
+
