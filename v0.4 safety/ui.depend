@@ -1,0 +1,52 @@
+# depslib dependency file v1.0
+1557405437 source:f:\课程资源\软件工程\代码\ui\print_info.c
+	<stdio.h>
+	<io.h>
+
+1557405372 source:f:\课程资源\软件工程\代码\ui\terminal.c
+	<stdio.h>
+	"controller.h"
+	"print_info.h"
+	"sys_setting.h"
+
+1557405351 f:\课程资源\软件工程\代码\ui\controller.h
+	<stdio.h>
+	<pthread.h>
+
+1557403445 f:\课程资源\软件工程\代码\ui\print_info.h
+	<stdio.h>
+
+1557405520 f:\课程资源\软件工程\代码\ui\sys_setting.h
+	"print_info.h"
+
+1557405437 source:c:\users\周萌\desktop\ui2\print_info.c
+	<stdio.h>
+	<io.h>
+
+1557471229 source:c:\users\周萌\desktop\ui2\terminal.c
+	<stdio.h>
+	"controller.h"
+	"print_info.h"
+	"sys_setting.h"
+
+1557469980 c:\users\周萌\desktop\ui2\controller.h
+
+1557470844 c:\users\周萌\desktop\ui2\safety.h
+
+1557403445 c:\users\周萌\desktop\ui2\print_info.h
+	<stdio.h>
+
+1557470902 c:\users\周萌\desktop\ui2\sys_setting.h
+	"print_info.h"
+	"safety.h"
+
+1557470308 source:c:\users\周萌\desktop\ui2\safety.c
+	<stdio.h>
+	"safety.h"
+
+1557470396 source:c:\users\周萌\desktop\ui2\controller.c
+	<stdio.h>
+	<pthread.h>
+	"controller.h"
+	"safety.h"
+
