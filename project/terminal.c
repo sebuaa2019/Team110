@@ -7,8 +7,6 @@ char pssword[16];
 
 void monitor_room(){}
 void report_errs(){}
-void modify_sys(){}
-void modify_settings(){}
 
 
 int main()
@@ -16,6 +14,7 @@ int main()
     int choose_id;
     int err;
 
+    init_sys(); 
 
     login_info(pssword);
     choose_id = choose_func();

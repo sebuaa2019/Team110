@@ -2,9 +2,17 @@
 
 int check_pssword(char *pssword)
 {
-    return 1;
-
+    FILE *check;
+    char right[10];
+    check = fopen("settings","r");
+    fgets(right,10,check);
+    right[strlen(right)-1] = '\0';
+    fclose(check);
+    if(strcmp(right,pssword) == 0) return 1;
+    else return 0;
+    /*查询密码用户名是否匹配，成功return 1, 失败 -1*/
 }
+
 void login_info(char* pssword)
 {
     int limittime = 5;
