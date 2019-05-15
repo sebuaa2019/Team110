@@ -2,28 +2,29 @@
 #include <string.h>
 #include "user_management.h"
 
-char name[500]; //用户的姓名
-char address[500]; //用户的住址
-char user_phone[500]; //用户的电话
-char alarm_phone[500]; //报警电话
-char file_path[500]; //保存用户信息的文件
-FILE *fp;   //  用户信息文件
+char name[500]; 
+char address[500]; 
+char user_phone[500]; 
+char alarm_phone[500]; 
+char file_path[500]; 
+FILE *fp;   
+int user_init=0;
 
 int user_information(){
     int number;
     char content[500];
-    creat("user.txt",00700);
-    if((fp=fopen("user.txt","w"))==NULL){
-        printf("无法打开用户信息文件\n");
+    if(user_init==0){
+	creat("user.txt",00700);
+    	if((fp=fopen("user.txt","w"))==NULL){
+            printf("无法打开用户信息文件\n");
+    	}
+   	fputs("user001\n",fp);
+    	fputs("beihang\n",fp);
+    	fputs("15652580010\n",fp);
+    	fputs("110\n",fp);
+    	fclose(fp);
     }
-    else{
-        printf("打开用户信息文件(写文件)\n");
-    }
-    fputs("user001\n",fp);
-    fputs("beihang\n",fp);
-    fputs("15652580010\n",fp);
-    fputs("110\n",fp);
-    fclose(fp);
+    user_init=1;
     printf("您已进入用户信息管理系统\n");
     while(1){
         printf("输入1:查询用户信息\n输入2:修改用户信息\n输入3:退出用户信息管理系统\n");
@@ -96,19 +97,19 @@ int open_file_for_read()
         return 0;
     }
     else{
-        //printf("打开用户信息文件(只读)\n");
+      
         return 1;
     }
 }
 
 int open_file_for_write()
 {
-    if((fp=fopen(file_path,"r"))==NULL){
+    if((fp=fopen(file_path,"r+"))==NULL){
         printf("无法打开用户信息文件\n");
         return 0;
     }
     else{
-        printf("打开用户信息文件(写文件)\n");
+        
         return 1;
     }
 }
@@ -121,7 +122,7 @@ int close_file(){
 int save_name(char* name_to_save)
 {
     int err;
-    //strcpy(name,name_to_save);
+
     if((err=change_line(1,name_to_save))==1){
         printf("用户姓名修改成功！\n");
         return 1;
@@ -135,7 +136,6 @@ int save_name(char* name_to_save)
 int save_address(char* address_to_save)
 {
     int err;
-    //strcpy(address,address_to_save);
     if((err=change_line(2,address_to_save))==1){
         printf("用户地址修改成功！\n");
         return 1;
@@ -149,7 +149,6 @@ int save_address(char* address_to_save)
 int save_user_phone(char* user_phone_to_save)
 {
     int err;
-    //strcpy(user_phone,user_phone_to_save);
     if((err=change_line(3,user_phone_to_save))==1){
         printf("用户电话修改成功！\n");
         return 1;
@@ -163,7 +162,6 @@ int save_user_phone(char* user_phone_to_save)
 int save_alarm_phone(char* alarm_phone_to_save)
 {
     int err;
-    //strcpy(alarm_phone,alarm_phone_to_save);
     if((err=change_line(4,alarm_phone_to_save))==1){
         printf("报警电话修改成功！\n");
         return 1;
@@ -175,13 +173,13 @@ int save_alarm_phone(char* alarm_phone_to_save)
 }
 
 
-int change_line(int line,char* content) //替换文件某一行的内容
+int change_line(int line,char* content)
 
 {
     int i=0;
     char str[10][100]={0},linedata[100]={0};
-    fp=fopen("user.txt","r");
     FILE *fpw;
+    fp=fopen("user.txt","r");
     while (fgets(linedata,sizeof(linedata)-1,fp))
     {
         if(i>=4){
@@ -231,7 +229,7 @@ int check_file(){
     close_file();
     if(i<4){
         printf("用户信息不全，请补充完整!\n");
-        return 1;
+        return 0;
     }
     else{
         return 1;
