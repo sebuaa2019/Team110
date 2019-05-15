@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block title %}个人信息{% endblock %}
+{% block css %}
+    <link rel="stylesheet" href="{% static 'css/login.css' %}">
+{% endblock %}
+ 
+ 
+{% block content %}
+    <div class="container">
+        <div class="col-md-4 col-md-offset-4">
+            <div class="row">
+                <div class="col-md-4 text-right"><span>用户名:</span></div>
+                <div class="col-md-8 text-left">{{user.name}}</div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 text-right"><span>真实姓名:</span></div>
+                <div class="col-md-8 text-left">{{user.realname}}</div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 text-right"><span>性别:</span></div>
+                <div class="col-md-8 text-left">{{user.sex}}</div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 text-right"><span>邮箱:</span></div>
+                <div class="col-md-8 text-left">{{user.email}}</div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 text-right"><span>电话:</span></div>
+                <div class="col-md-8 text-left">{{user.tel}}</div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 text-right"><span>地址:</span></div>
+                <div class="col-md-8 text-left">{{user.address}}</div>
+            </div>
+            <div class="row">
+                <a href= "/edit/">
+                    <button class="btn btn-primary btn-lg">编辑我的信息</button>
+                </a>
+            </div>
+        </div>
+    </div> <!-- /container -->
+{% endblock %}
