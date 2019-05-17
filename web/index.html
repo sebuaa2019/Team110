@@ -6,7 +6,6 @@
 		<title>登录界面</title>
 		<link rel="stylesheet" href="css/reset.css" />
 		<link rel="stylesheet" href="css/common.css" />
-		<link rel="stylesheet" href="css/font-awesome.min.css" />
 	</head>
 	<body>
 		<div class="wrap login_wrap">
@@ -55,7 +54,6 @@
 		<script type="text/javascript" src="js/jquery.min.js" ></script>
 		<script type="text/javascript" src="js/common.js" ></script>
 		<div style="text-align:center;">
-<p><a href="http://www.mycodes.net/" target="_blank"></a></p>
 </div>
 	</body>
 	<script>
@@ -82,7 +80,7 @@
 						}//服务器返回error，登录失败
         		}
     		}
-    		xhr.open("POST","...",true);
+    		xhr.open("POST","json接口",true);
     		xhr.setRequestHeader("Content-type","application/json");
     		xhr.send(jsonData);
 		}

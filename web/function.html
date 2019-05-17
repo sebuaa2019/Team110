@@ -1,14 +1,16 @@
 <!DOCTYPE html>
 <html>
 <head>
+<style type="text/css">
+	li{<br>
+		color: blue;
+		font-size: 18px;
+	}	
+</style>
 <meta charset="utf-8">
     <title>功能选择页面</title>
 	
     <link rel="stylesheet" type="text/css" href="css/nav.css">
-    <link rel="stylesheet" type="text/css" href="font/iconfont.css">
-	
-    <script type="text/javascript" src="js/jquery1.min.js"></script>
-    <script type="text/javascript" src="js/nav.js"></script>
 	
 </head>
 <body>
@@ -16,30 +18,13 @@
         <div class="nav-top">
             <div id="mini" style="border-bottom:1px solid rgba(255,255,255,.1)"><img src="img/mini.png" ></div>
         </div>
-        <ul>
-            <li class="nav-item">
-                <a href="javascript:;"><i class="my-icon nav-icon icon_1"></i><span>系统安装/解除</span><i class="my-icon nav-more"></i></a>
-                <ul>
-                    <li><a onclick=send(1)><span>系统安装</span></a></li>
-                    <li><a onclick=send(2)><span>系统解除</span></a></li>
-					<li><a onclick=send(7)><span>登出系统</span></a></li>
-                </ul>
-            </li>
-            <li class="nav-item">
-                <a href="javascript:;"><i class="my-icon nav-icon icon_2"></i><span>关于密码</span><i class="my-icon nav-more"></i></a>
-                <ul>
-                    <li><a href="cgpass.html"><span>修改密码</span></a></li>
-                </ul>
-            </li>
-            <li class="nav-item">
-                <a href="javascript:;"><i class="my-icon nav-icon icon_3"></i><span>功能</span><i class="my-icon nav-more"></i></a>
-                <ul>
-                    <li><a href="javascript:;"><span>摄像头监视</span></a></li>
-                    <li><a href="javascript:;"><span>报告错误</span></a></li>
-                    <li><a href="javascript:;"><span>重新配置系统</span></a></li>
-                </ul>
-            </li>
-        </ul>
+            <li><a onclick=send(1)><span>系统安装</span></a></li>
+			<li><a onclick=send(2)><span>系统解除</span></a></li>
+			<li><a onclick=send(3)><span>用摄像头监视房间</span></a></li>
+            <li><a onclick=send(4)><span>报告错误</span></a></li>
+			<li><a onclick=send(5)><span>重新配置系统或传感器</span></a></li>
+			<li><a href = "cgpass.html"><span>修改密码</span></a></li>
+            <li><a onclick=send(7)><span>登出系统</span></a></li>		
     </div>
 	<div style="text-align:center;">
 </div>
@@ -65,7 +50,7 @@
 						}//服务器返回error，登录失败
         		}
     		}
-    		xhr.open("POST","http://114.115.134.119:5000/beta/getFocusedFlights",true);
+    		xhr.open("POST","json接口",true);
     		xhr.setRequestHeader("Content-type","application/json");
     		xhr.send(jsonData);
 		}
