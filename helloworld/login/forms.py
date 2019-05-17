@@ -5,7 +5,7 @@ from captcha.fields import CaptchaField
 class UserForm(forms.Form):
     username = forms.CharField(label='用户名', max_length=128, widget=forms.TextInput(attrs={'class': 'form-control'}))
     password = forms.CharField(label='密码', max_length=256, widget=forms.PasswordInput(attrs={'class': 'form-control'}))
-    #captcha = CaptchaField(label='验证码')
+    captcha = CaptchaField(label='验证码')
 
 
 class RegisterForm(forms.Form):
@@ -21,7 +21,7 @@ class RegisterForm(forms.Form):
     address = forms.CharField(label='家庭住址', widget=forms.TextInput(attrs={'class': 'form-control'}))
     tel = forms.IntegerField(label='电话号码', widget=forms.TextInput(attrs={'class': 'form-control'}))
     sex = forms.ChoiceField(label='性别', choices=gender)
-    #captcha = CaptchaField(label='验证码')
+    captcha = CaptchaField(label='验证码')
 
 class EditForm(forms.Form):
     gender = (
@@ -38,4 +38,5 @@ class EditForm(forms.Form):
     address = forms.CharField(label='家庭住址', widget=forms.TextInput(attrs={'class': 'form-control'}))
     tel = forms.IntegerField(label='电话号码', widget=forms.TextInput(attrs={'class': 'form-control'}))
     sex = forms.ChoiceField(label='性别', choices=gender)
+    captcha = CaptchaField(label='验证码')
 
