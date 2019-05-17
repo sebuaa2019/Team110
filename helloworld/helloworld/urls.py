@@ -29,7 +29,7 @@ urlpatterns = [
     url(r'^logout/', views.logout),
     url(r'^info/', views.info),
     url(r'^edit/', views.edit),
-    url(r'^captcha', include('captcha.urls'))
-
+    url(r'^captcha', include('captcha.urls')),
+    url(r'^pswdchange/',views.pswdchange)
 
 ]
