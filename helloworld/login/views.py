@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 
 from . import models
-from .forms import UserForm, RegisterForm, EditForm
+from .forms import UserForm, RegisterForm, EditForm, PswchangeForm
 # Create your views here.
 def info(request):
     if request.session.get('is_login', None):
@@ -118,4 +118,32 @@ def logout(request):
     request.session.flush()
     messages.success(request, "登出成功")
     return render(request, 'login/index.html', locals())
+
+def pswdchange(request):
+    if request.method=='POST':
+        psw_form = PswchangeForm(request.POST)
+        message = "密码修改成功！"
+        if psw_form.is_valid():
+            origin_psw = psw_form.cleaned_data['password0']
+            new_psw = psw_form.cleaned_data['password1']
+            confirm_psw = psw_form.cleaned_data['password2']
+            print(origin_psw)
+            try:
+                user = models.User.objects.get(name=request.session['user_name'])
+                if user.password == origin_psw:
+                    if new_psw == confirm_psw:
+                        user.password = new_psw
+                        user.save()
+                    else:
+                        message = "两次输入的密码不一致!"
+                else:
+                    message = "原密码输入错误!"
+            except:
+                message = "用户不存在!"
+        return render(request,'login/index.html',locals())
+
+    psw_form = PswchangeForm()
+    return render(request,'login/index.html',locals())
+    
+
 
