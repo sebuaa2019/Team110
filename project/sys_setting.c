@@ -9,7 +9,7 @@ void init_sys(){
     FILE *code;
 	FILE *setall;
 	if((code = fopen("settings","w")) == NULL){
- 		creat("settings",00700);       
+ 		creat("settings",00700);
 		code = fopen("settings","w");
         	fprintf(code,"123456\n");
 		fprintf(code,"20\n");
@@ -20,7 +20,7 @@ void init_sys(){
         	fclose(code);
 	}
 	setall = fopen("settings","r");
-	
+
 	fgets(setting,20,setall);
     	setting[strlen(setting)-1] = '\0';
 
@@ -33,7 +33,7 @@ void init_sys(){
 	fgets(setting,20,setall);
     	setting[strlen(setting)-1] = '\0';
 	code_delay = atoi(setting);
-	
+
 	fgets(setting,20,setall);
     	setting[strlen(setting)-1] = '\0';
 	smoke_limit = atoi(setting);
@@ -41,8 +41,8 @@ void init_sys(){
 	fgets(setting,20,setall);
     	setting[strlen(setting)-1] = '\0';
 	start_delay = atoi(setting);
-	
-	fclose(setall);	
+
+	fclose(setall);
 }
 
 void modify_settings(){
@@ -54,7 +54,8 @@ void modify_settings(){
     printf("4: 修改主人输密码时长\n");
     printf("5: 修改烟雾浓度阈值\n");
     printf("6: 修改开启系统时延\n");
-    printf("7: 放弃修改\n");
+    printf("7: 修改传感器参数\n");
+    printf("8: 放弃修改\n");
     scanf("%d",&choice);
     switch(choice){
         case 1:
@@ -76,8 +77,11 @@ void modify_settings(){
 	    modify_startdelay();
 	    break;
 	case 7:
+	    modify_sensor_setting();
 	    break;
     }
+    case 8:
+        break;
 }
 
 void change_code(){
@@ -126,15 +130,15 @@ void write_new_code(){
 	fgets(line6,20,codein);
 	fclose(codein);
 
-	codeout = fopen("settings","w");	
+	codeout = fopen("settings","w");
         fprintf(codeout,"%s\n",once);
 	fprintf(codeout,"%s",line2);
 	fprintf(codeout,"%s",line3);
 	fprintf(codeout,"%s",line4);
 	fprintf(codeout,"%s",line5);
-	fprintf(codeout,"%s",line6);	
+	fprintf(codeout,"%s",line6);
         fclose(codeout);
-	
+
         printf("修改密码成功！\n");
     }
     else{
@@ -167,7 +171,7 @@ void modify_delay(){
 	printf("请输入新报警间隔：");
 	scanf("%s",once);
 
-	codeout = fopen("settings","w");	
+	codeout = fopen("settings","w");
         fprintf(codeout,"%s",line1);
 	fprintf(codeout,"%s\n",once);
 	fprintf(codeout,"%s",line3);
@@ -175,7 +179,7 @@ void modify_delay(){
 	fprintf(codeout,"%s",line5);
 	fprintf(codeout,"%s",line6);
         fclose(codeout);
-	
+
         printf("修改间隔成功！\n");
 
 }
@@ -205,7 +209,7 @@ void modify_phonenum(){
 	printf("请输入新报警电话：");
 	scanf("%s",once);
 
-	codeout = fopen("settings","w");	
+	codeout = fopen("settings","w");
         fprintf(codeout,"%s",line1);
 	fprintf(codeout,"%s",line2);
 	fprintf(codeout,"%s\n",once);
@@ -213,7 +217,7 @@ void modify_phonenum(){
 	fprintf(codeout,"%s",line5);
 	fprintf(codeout,"%s",line6);
         fclose(codeout);
-	
+
         printf("修改电话成功！\n");
 }
 
@@ -240,10 +244,22 @@ void modify_codedelay(){
 
 	printf("当前输密码时长为：%s",line4);
 	printf("请输入新时长：");
-	scanf("%s",once);
-	code_delay = atoi(once);
 
-	codeout = fopen("settings","w");	
+
+
+    while(1){
+        scanf("%s",once);
+
+        if(atoi(once)<=0){
+            printf("您输入的值不合法，请重新输入: ");
+        }
+        else{
+            code_delay = atoi(once);
+            break;
+        }
+    }
+
+	codeout = fopen("settings","w");
         fprintf(codeout,"%s",line1);
 	fprintf(codeout,"%s",line2);
 	fprintf(codeout,"%s",line3);
@@ -251,7 +267,7 @@ void modify_codedelay(){
 	fprintf(codeout,"%s",line5);
 	fprintf(codeout,"%s",line6);
         fclose(codeout);
-	
+
         printf("修改成功！\n");
 }
 
@@ -278,10 +294,19 @@ void modify_smokelimit(){
 
 	printf("当前烟雾浓度阈值为：%s",line5);
 	printf("请输入新阈值：");
-	scanf("%s",once);
-	smoke_limit = atoi(once);
 
-	codeout = fopen("settings","w");	
+	 while(1){
+        scanf("%s",&once);
+        if(atoi(once)<=0){
+            printf("您输入的值不合法，请重新输入: ");
+        }
+        else{
+            smoke_limit = atoi(once);
+            break;
+        }
+    }
+
+	codeout = fopen("settings","w");
         fprintf(codeout,"%s",line1);
 	fprintf(codeout,"%s",line2);
 	fprintf(codeout,"%s",line3);
@@ -289,7 +314,7 @@ void modify_smokelimit(){
 	fprintf(codeout,"%s\n",once);
 	fprintf(codeout,"%s",line6);
         fclose(codeout);
-	
+
         printf("修改成功！\n");
 }
 
@@ -319,7 +344,7 @@ void modify_startdelay(){
 	scanf("%s",once);
 	start_delay = atoi(once);
 
-	codeout = fopen("settings","w");	
+	codeout = fopen("settings","w");
         fprintf(codeout,"%s",line1);
 	fprintf(codeout,"%s",line2);
 	fprintf(codeout,"%s",line3);
@@ -327,26 +352,8 @@ void modify_startdelay(){
 	fprintf(codeout,"%s",line5);
 	fprintf(codeout,"%s\n",once);
         fclose(codeout);
-	
+
         printf("修改成功！\n");
 }
 
-void modify_sys(){
-    int id;
-    printf("您已进入系统参数修改中心\n");
-    printf("请输入您需要的功能:(输入对应序号)\n");
-    printf("1: 修改传感器参数\n");
-    printf("2: 退出系统参数修改中心\n");
-    scanf("%d",&id);
-    switch(id)
-    {
-        case 1:{
-            modify_sensor_setting();
-            break;
-        }
-        case 2:{
-            printf("您已退出系统参数修改中心\n");
-            break;
-        }
-    }
-}
+
