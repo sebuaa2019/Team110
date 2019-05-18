@@ -4,6 +4,6 @@
 
 extern void login_info(char* pssword);
 extern int choose_func();
-
+void open_close(char* pssword,int type);
 
 #endif // PRINT_INFO_H_

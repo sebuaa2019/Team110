@@ -21,13 +21,15 @@ int main()
     while(1){
         switch(choose_id)
         {
-        case 1:     
+        case 1: 
+            open_close(pssword,0);    
             err=arm_sys();
             if(err!=1){
                 printf("系统启动失败\n"); 
             }
             break;
         case 2:     
+            open_close(pssword,1);
             err=disarm_sys();
             if(err!=1){
                 printf("系统关闭失败\n");   
