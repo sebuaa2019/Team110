@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <string.h>
 
 int check_pssword(char *pssword)
 {
@@ -32,6 +33,37 @@ void login_info(char* pssword)
     }
     if(i == 5) exit(0);
 }
+
+void open_close(char* pssword,int type)
+{
+    int limittime = 5;
+    int i = 0;
+    int check;
+    char type_char[50];
+
+    if(type==0){
+        strcpy(type_char,"开启");
+    }
+    else if(type==1){
+        strcpy(type_char,"关闭");
+    }
+    printf("%s系统，请输入密码，最多尝试五次\n",type_char);
+    while(i<5){
+        printf("密码: ");
+        scanf("%s",pssword);
+        check = check_pssword(pssword);
+        if(check==1) {
+            printf("%s成功！\n",type_char);
+            break;
+        }
+        printf("密码错误，请重新输入\n");
+        i++;
+    }
+    if(i == 5) {
+        printf("%s失败\n");
+    };
+}
+
 int choose_func()
 {
     int id;
