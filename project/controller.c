@@ -6,6 +6,8 @@
 #include <time.h>
 #include <tasklib.h>
 #include "controller.h"
+#include "safety.h"
+#include "sys_setting.h"
 int task;
 int task_open=0;
 int task_time=0;
@@ -16,6 +18,7 @@ int arm_sys()
 
     if(sys_switch==0){
         printf("正在打开系统\n");
+	taskDelay(start_delay*60);
 	if(task_open==0){
 		task=taskSpawn("task1",200,0,1000,(FUNCPTR)pthread_func,0,0,0,0,0,0,0,0,0,0);
 		if(task == ERROR)
@@ -46,16 +49,25 @@ void* pthread_func(void *arg)
 {
     printf("系统正在运行中，可监视烟雾和入侵\n");
     for(;;){
-        taskDelay(500);
+        taskDelay(300);
 	if(sys_switch==1){
 		task_time+=5;
 		printf("系统正在运行中，已启动%d秒\n",task_time);
+		if(detect_smoke() == 1){
+			react(0);
+		}
+		if(detect_invade() == 1){
+			taskDelay(code_delay*60);
+			judge_offence(sys_switch);	
+		}
+		else if(detect_invade() == 2){
+			react(2);
+		}
 	}
     }
 
     return NULL;
 }
-
 
 int disarm_sys()
 {

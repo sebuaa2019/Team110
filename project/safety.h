@@ -11,4 +11,6 @@ int detect_smoke();
 
 int detect_invade();
 
+double get_smoke_concen();
+
 #endif // SAFETY_H_INCLUDED

@@ -1,7 +1,21 @@
 #include<stdio.h>
 #include "safety.h"
+#include "sys_setting.h"
+
 int switch_smoke_sensor = 1;
 int switch_invade_sensor = 1;
+
+double get_smoke_concen(){
+    return 50;
+}
+
+int onMovement(){
+	return 0;
+}
+
+int onDoor(){
+	return 0;
+}
 
 void modify_sensor_setting(){
     int id;
@@ -58,17 +72,19 @@ int detect_smoke(){
 /*need basic sensor data to analyze*/
 /*return 0 means no smoke*/
     if(switch_smoke_sensor){
-
-        return 1;
+	if(get_smoke_concen()>=smoke_limit){
+		return 1;
+	}
+	else return 0;
     }
     else return 0;
-
 }
 
 int detect_invade(){
     if(switch_invade_sensor){
-
-        return 1;
+	if(onMovement()) return 2;
+	else if(onDoor()) return 1;
+        else return 0;
     }
     else return 0;
 }
