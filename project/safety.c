@@ -50,7 +50,7 @@ void modify_sensor_setting(){
         }
     }
 }
-void double get_smoke_concen(){
+double get_smoke_concen(){
     return 50;
 }
 
