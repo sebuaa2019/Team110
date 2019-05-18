@@ -15,10 +15,16 @@ int task_time=0;
 int arm_sys()
 {
     int err;
+    int count_down;
 
     if(sys_switch==0){
         printf("正在打开系统\n");
-	taskDelay(start_delay*60);
+	count_down=start_delay;
+     	while(count_down>0){
+		printf("还有%d秒开启系统\n",count_down);
+		taskDelay(60);
+		count_down-=1;	
+	}
 	if(task_open==0){
 		task=taskSpawn("task1",200,0,1000,(FUNCPTR)pthread_func,0,0,0,0,0,0,0,0,0,0);
 		if(task == ERROR)
