@@ -30,6 +30,10 @@ urlpatterns = [
     url(r'^info/', views.info),
     url(r'^edit/', views.edit),
     url(r'^captcha', include('captcha.urls')),
-    url(r'^pswdchange/',views.pswdchange)
+    url(r'^pswdchange/',views.pswdchange),
+    url(r'^panel/',views.panel),
+    url(r'^status/',views.status),
+    url(r'^misreport/',views.misreport)
+
 
 ]
