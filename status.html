@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"> 
+	<title>系统状态</title>
+	<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+	<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body background="img/bizhi1.jpg">
+	<h1>welcome to the status</h1>
+	  	<span class="label label-default">小标签</span>
+		<span class="label label-primary">小标签</span>
+		<span class="label label-success">小标签</span>
+		<span class="label label-info">小标签</span>
+		<span class="label label-warning">小标签</span>
+		<span class="label label-danger">小标签</span>
+<div class="container" style="padding: 100px 50px 10px;" >
+	<a href="#" class="list-group-item active">
+			系统设置
+		</a>
+	<button type="button" class="btn btn-success" title="Popover title"  
+			data-container="body" data-toggle="tip" data-placement="top" 
+			data-content="系统已经关闭">
+		关闭系统
+	</button>
+	<button type="button" class="btn btn-success" title="Popover title"  
+			data-container="body" data-toggle="tip" data-placement="top" 
+			data-content="系统已经打开">
+		打开系统
+	</button>
+	<div class="btn-group">
+      <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown">
+      查看系统状态 <span class="caret"></span></button>
+      <ul class="dropdown-menu" role="menu">
+        <li><a href="#">系统状态：开</a></li>
+        <li><a href="#">系统状态：关</a></li>
+      </ul>
+    </div>
+	<div class="btn-group">
+      <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown">
+      查看系统时间 <span class="caret"></span></button>
+      <ul class="dropdown-menu" role="menu">
+		<div id="datetime" class="btn-primary">
+		  <script>
+			setInterval("document.getElementById('datetime').innerHTML=new Date().toLocaleString();", 1000);
+		</script>
+		  </div>
+      </ul>
+    </div>
+</div>
+<script>
+$(function () { 
+	$("[data-toggle='tip']").popover();
+});
+</script>
+
+</body>
+</html>
