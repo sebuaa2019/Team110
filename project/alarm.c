@@ -1,4 +1,32 @@
 #include <stdio.h>
+#include <stdlib.h>
+void alarm_bell(){
+
+    return ;
+}
+
+void get_cellphone_number(){
+    char line1[20];
+    char line2[20];
+    char tel_number[20];
+
+	FILE *codein;
+
+    codein = fopen("settings","r");
+	fgets(line1,20,codein);
+	fgets(line2,20,codein);
+	fgets(tel_number,20,codein);
+	fclose(codein);
+
+
+}
+
+void call(char* msg){
+    get_cellphone_number();
+
+    /* call for help */
+}
+
 
 void react(int type){
 	switch(type){
