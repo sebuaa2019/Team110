@@ -1,14 +1,39 @@
-
 {#login/templates/login/index.html#}
 {% extends 'base.html' %}
-{% block title %}主页{% endblock %}
+{% load static %}
+{% block title %}网站主页{% endblock %}
 {% block content %}
+<style type="text/css">
+    body {  background:url({% static "img/bizhi2.jpg" %}) no-repeat center;
+            background-size: 100%;
+            font-family:"Arial", "Tahoma", "微软雅黑", "雅黑";
+            line-height:18px; 
+            padding:0; 
+            margin:0; 
+            text-align:center; }  
+    input {
+        width: 500px;
+        height: 60px;
+        margin: 40px auto;
+        padding: 10px;
+        background: #6AB1B1;
+        font-size: x-large;
+        font-weight: 800;
+        font-family: "楷体","楷体_GB2312";
+    }
+</style>
     {% if request.session.is_login %}
-        <h1>你好,{{ request.session.user_name }}！欢迎回来！</h1>
-        <h1><a href = #>查看监控 </a></h1>
-        <h1><a href = "/info/">查看个人信息 </a></h1>
-        <h1><a href = #>控制面板 </a></h1>
+        <h1 align="center">
+            你好,{{ request.session.user_name }}！欢迎回来！
+        </h1>
+        <br>
+        <input name="monitor" type="button" id="btn1" title="查看监控" value="查看监控"  />
+        <br>
+        <input name="info" type="button" id="btn2" title="查看个人信息" value="查看个人信息"  onclick="location.href='/info/'" />
+        <br>
+        <input name="control" type="button" id="btn3" title="控制面板" value="控制面板"  onclick="location.href='/panel/'" />
+        <br>
     {% else %}
-        <h1>你尚未登录，只能访问公开内容！</h1>
+        <h1 align="center">你尚未登录，只能访问公开内容！</h1>
     {% endif %}
 {% endblock %}
