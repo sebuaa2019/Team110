@@ -1,78 +1,32 @@
+{#login/templates/login/index.html#}
+{% extends 'base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html>
-<head>
+{% block title %}控制面板{% endblock %}
+{% block content %}
 <style type="text/css">
-    li{<br>
-        color: black;
-        font-size: 18px;
-    }   
+    body {  background:#1a5b6b3d;
+            background-size: 100%;
+            font-family:"Arial", "Tahoma", "微软雅黑", "雅黑";
+            line-height:18px; 
+            padding:0; 
+            margin:0; 
+            text-align:center; }  
+    input {
+        width: 500px;
+        height: 60px;
+        margin: 40px auto;
+        padding: 10px;
+        background: #6AB1B1;
+        font-size: x-large;
+        font-weight: 800;
+        font-family:"Arial", "Tahoma", "微软雅黑", "雅黑";
+    }
 </style>
-<meta charset="utf-8">
-    <title>功能选择页面</title>
-    
-    <link rel="stylesheet" type="text/css" href={% static "CSS/nav.css" %}>
-    
-</head>
-<body>
-    <div class="nav">
-        <div class="nav-top">
-            <div id="mini" style="border-bottom:1px solid rgba(255,255,255,.1)"><img src={% static "img/mini.png" %} ></div>
-        </div>
-            <li><a href="#"><span style="color;color: #2f7b66;">系统状态</span></a></li>
-            <li><a href="#"><span style="color;color: #2f7b66;">用摄像头监视房间</span></a></li>
-            <li><a href="#"><span style="color;color: #2f7b66;">报告错误</span></a></li>
-            <li><a href="#"><span style="color;color: #2f7b66;">重新配置系统或传感器</span></a></li>
-            <li><a href="/index/"><span style="color;color: #2f7b66;">回到主页</span></a></li>
-
-    </div>
-    <div style="text-align:center;">
-</div>
-</body>
-<!--
-<script>
-    function send(a){
-            var username = a;
-            alert(username);
-           // var jsonData = JSON.stringify({
-           //     username:username,
-           // })
-            var xhr = ajaxFunction();
-            xhr.onreadystatechange = function(){
-                if(xhr.readyState==4){
-                        var responseData = JSON.parse(xhr.responseText);
-                        alert(JSON.stringify(responseData));
-                        if(responseData.status == "success"){
-                            alert("操作成功");
-                            //window.location.href = "";
-                        }//服务器返回success，登录成功
-                        else{
-                            alert("操作失败");
-                        }//服务器返回error，登录失败
-                }
-            }
-            xhr.open("POST","/panel",true);
-            xhr.setRequestHeader("Content-type","application/json");
-           // xhr.send(jsonData);
-        }
-        function ajaxFunction(){
-            var xmlHttp;
-            try{ // Firefox, Opera 8.0+, Safari
-                xmlHttp=new XMLHttpRequest();
-            }
-            catch (e){
-                try{// Internet Explorer
-                        xmlHttp=new ActiveXObject("Msxml2.XMLHTTP");
-                }
-                catch (e){
-                        try{
-                        xmlHttp=new ActiveXObject("Microsoft.XMLHTTP");
-                    }
-                    catch (e){}
-                }
-                }
-                return xmlHttp;
-        }
-</script>
--->
-</html>
+        <br>
+        <input name="monitor" type="button" id="btn1" title="查看系统状态" value="查看系统状态" onclick="location.href='/status/'" />
+        <br>
+        <input name="info" type="button" id="btn2" title="联系管理员报告错误" value="联系管理员报告错误"  onclick="location.href='/misreport'" />
+        <br>
+        <input name="control" type="button" id="btn3" title="重新配置系统/传感器" value="重新配置系统/传感器" />
+        <br>
+{% endblock %}
