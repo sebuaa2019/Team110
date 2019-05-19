@@ -145,5 +145,27 @@ def pswdchange(request):
     psw_form = PswchangeForm()
     return render(request,'login/index.html',locals())
     
-
+def misreport(request):
+    if request.method == 'POST':
+        admin_name =  request.POST['admin_name']
+        tel_num = request.POST['tel_num']           #用户手机
+        mail_address = request.POST['mail_address'] #用户邮箱
+        report_message = request.POST['report_message']        
+        try:
+            admin = models.Admin.objects.get(name=admin_name)
+            admin_mail = admin.mail
+        except:
+            message = "该管理员不存在！"
+            return render(request,'login/misreport.html',locals())
+        try:
+            subject = "报告错误:来自邮箱:" + mail_address +" 手机号: "+tel_num
+            from_email = '978149308@qq.com'
+            to = 'feiyue978149308@gmail.com'
+            send_mail(subject,report_message,from_email,[to])
+            message = "错误提交成功"
+            return render(request,'login/misreport.html',locals())
+        except:
+            message = "发送失败，请重新确认邮箱地址！"
+            return render(request,'login/misreport.html',locals())
+    return render(request,'login/misreport.html',locals())
 
