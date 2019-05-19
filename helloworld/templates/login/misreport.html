@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+{% block title %}报告错误{% endblock %}
+{% load static %}
+{% block content %}
+<!DOCTYPE html>
+<html>
+<head>
+        <meta charset="utf-8">
+        <title>报错界面</title>
+        <link rel="stylesheet" href={% static "CSS/reset.css" %}>
+        <link rel="stylesheet" href={% static "CSS/common.css" %}>
+        <link rel="stylesheet" href={% static "bootstrap-3.3.7-dist/css/bootstrap.min.css" %}>
+        <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+        <script src={% static "bootstrap-3.3.7-dist/css/bootstrap.min.css" %}></script>
+    </head>
+    <body>
+        <div class="wrap login_wrap2">
+            <div class="content">
+                
+                <div class="logo"></div>
+                
+                <div class="login_box"> 
+                    
+                    <div class="login_form">
+                        <div class="login_title">
+                            联系管理员
+                        </div>
+                        <form action="" method="post">
+                            {% if message %}
+                                <div class="alert alert-warning">{{ message }}</div>
+                            {% if message == "错误提交成功" %}
+                            <script>
+                                window.setTimeout("window.location='/index/'",2000);
+                            </script>
+                            {% endif %}
+                            {% endif %}
+                            {% csrf_token %}
+                            <div class="form_text_ipt">
+                                <input name="admin_name" type="text" placeholder="管理员名字" required>
+                            </div>
+                            <div class="ececk_warning"><span>管理员名不能为空</span></div>
+                            <div class="form_text_ipt">
+                                <input name="tel_num" type="text" maxlength="11" placeholder="您的手机号" required>
+                            </div>
+                            <div class="ececk_warning"><span>手机号不能为空</span></div>
+                            <div class="form_text_ipt">
+                                <input name="mail_address" type="text" maxlength="50" placeholder="您的邮箱" required>
+                            </div>
+                            <div class="ececk_warning"><span>邮箱不能为空</span></div>
+                            <div class="form_text_ipt">
+                                <input name="report_message" type="text" placeholder="错误信息" required>
+                            </div>
+                            <div class="ececk_warning"><span>错误信息不能为空</span></div>
+                            <div class="form_btn">
+                                <button type="submit" >点击提交</button>
+                            </div>
+                            <div class="form_btn">
+                                <button type="reset" >点击重置</button>
+                            </div>
+                        </form>
+                        <div class="other_login">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div style="text-align:center;">
+</div>
+    </body>
+</html>
+{% endblock %}
