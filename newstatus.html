@@ -1,0 +1,163 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>系统状态</title>
+</head>
+<style type="text/css">
+	body { 	background:#83FFC2;
+			background-size: 100%;
+			font-size:18px; 
+			font-family:"Arial", "Tahoma", "微软雅黑", "雅黑";
+		 	line-height:18px; 
+			padding:0; 
+			margin:50px; 
+			text-align:center; }  
+	input {
+		width: 500px;
+		height: 60px;
+		margin: 40px auto;
+		padding: 10px;
+		background: #33CC21;
+		font-size: x-large;
+		font-weight: 800;
+		font-family: "楷体","楷体_GB2312";
+	}
+	.radio_wrap {
+		width: 40px;
+		height: 40px;
+		margin: 40px auto;
+		padding: 10px;
+		background: #33CC21;
+		font-size: x-large;
+		font-weight: 800;
+		font-family: "楷体","楷体_GB2312";
+	}
+	.radio_wrap1 {
+		display: inline-block;
+		width: 40px;
+		height: 40px;
+		vertical-align: middle;
+		border-radius: 50%;
+		border: 6px solid #999;
+		background-color: #ddd;
+	}
+	.label_wrap {
+		padding: 20px;
+		font-size: x-large;
+		font-weight: 800;
+		font-family: "楷体","楷体_GB2312";
+	}
+</style>
+
+<body>
+	<h1 align="center">
+		Welcome to the status
+	</h1>
+	<div id="datetime" class="label_wrap">
+		<script>
+			setInterval("document.getElementById('datetime').innerHTML=new Date().toLocaleString();", 1000);
+		</script>
+	</div>
+	<br>
+	<input name="open_system" type="button" id="btn1" title="打开系统" value="打开系统" onclick="change()">
+	<br>
+	<input name="close_system" type="button" id="btn2" title="关闭系统" value="关闭系统" onclick="change1()"/>
+	<br>
+	<div id="div1">
+	<label class="label_wrap">
+		<input name="status" class="radio_wrap1" type="radio" id="btn3" title="系统开状态" value="系统：开"/>系统：开 &nbsp &nbsp
+	</label>
+	<label class="label_wrap">
+		<input name="status" class="radio_wrap1" type="radio" id="btn4" title="系统关状态" value="系统：关" checked="checked"/>系统：关
+	</label>
+	</div>
+	
+</body>
+	<script>
+		function send(a){
+			var sswitch = a;
+			alert(sswitch);
+    		var jsonData = JSON.stringify({
+				sswitch:sswitch,
+    		})
+    		var xhr = ajaxFunction();
+    		xhr.onreadystatechange = function(){
+        		if(xhr.readyState==4){
+						var responseData = JSON.parse(xhr.responseText);
+						alert(JSON.stringify(responseData));
+						if(responseData.status == "success"){
+							alert("操作成功");
+							change();
+						}//服务器返回success，登录成功
+						else{
+							alert("操作失败");
+						}//服务器返回error，登录失败
+        		}
+    		}
+    		xhr.open("POST","json接口",true);
+    		xhr.setRequestHeader("Content-type","application/json");
+    		xhr.send(jsonData);
+		}
+		function send1(a){
+			var sswitch = a;
+			alert(sswitch);
+    		var jsonData = JSON.stringify({
+				sswitch:sswitch,
+    		})
+    		var xhr = ajaxFunction();
+    		xhr.onreadystatechange = function(){
+        		if(xhr.readyState==4){
+						var responseData = JSON.parse(xhr.responseText);
+						alert(JSON.stringify(responseData));
+						if(responseData.status == "success"){
+							alert("操作成功");
+							change1();
+						}//服务器返回success，登录成功
+						else{
+							alert("操作失败");
+						}//服务器返回error，登录失败
+        		}
+    		}
+    		xhr.open("POST","json接口",true);
+    		xhr.setRequestHeader("Content-type","application/json");
+    		xhr.send(jsonData);
+		}
+		function ajaxFunction(){
+    		var xmlHttp;
+    		try{ // Firefox, Opera 8.0+, Safari
+        		xmlHttp=new XMLHttpRequest();
+    		}
+    		catch (e){
+        		try{// Internet Explorer
+					xmlHttp=new ActiveXObject("Msxml2.XMLHTTP");
+        		}
+        		catch (e){
+					try{
+                		xmlHttp=new ActiveXObject("Microsoft.XMLHTTP");
+            		}
+            		catch (e){}
+        		}
+			}
+			return xmlHttp;
+		}
+		function change(){
+			var string = '<label class="label_wrap">'+
+							'<input name="status" class="radio_wrap1" type="radio" id="btn3" title="系统开状态" value="系统：开" checked="checked"/>系统：开&nbsp &nbsp &nbsp'+
+						'</label>'+
+						'<label class="label_wrap">'+
+							'<input name="status" class="radio_wrap1" type="radio" id="btn4" title="系统关状态" value="系统：关"/>系统：关'+
+						'</label>';
+			document.getElementById("div1").innerHTML = string;
+		}
+		function change1(){
+			var string = '<label class="label_wrap">'+
+							'<input name="status" class="radio_wrap1" type="radio" id="btn3" title="系统开状态" value="系统：开"/>系统：开&nbsp &nbsp &nbsp'+
+						'</label>'+
+						'<label class="label_wrap">'+
+							'<input name="status" class="radio_wrap1" type="radio" id="btn4" title="系统关状态" value="系统：关" checked="checked"/>系统：关'+
+						'</label>';
+			document.getElementById("div1").innerHTML = string;
+		}
+</script>
+</html>
