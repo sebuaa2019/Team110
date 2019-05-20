@@ -1,0 +1,145 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}系统状态{% endblock %}
+{% block content %}
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>系统状态</title>
+</head>
+<style type="text/css">
+  body {  background:#1a5b6b3d;
+      background-size: 100%;
+      font-size:18px; 
+      font-family:"Arial", "Tahoma", "微软雅黑", "雅黑";
+      line-height:18px; 
+      padding:0; 
+      margin:0; 
+      text-align:center; }  
+  input {
+    width: 500px;
+    height: 60px;
+    margin: 40px auto;
+    padding: 10px;
+    background: #6AB1B1;
+    font-size: x-large;
+    font-weight: 800;
+    font-family:"Arial", "Tahoma", "微软雅黑", "雅黑";
+  }
+  .radio_wrap {
+    width: 40px;
+    height: 40px;
+    margin: 40px auto;
+    padding: 10px;
+    background: #1a5b6b3d;
+    font-size: x-large;
+    font-weight: 800;
+    font-family:"Arial", "Tahoma", "微软雅黑", "雅黑";
+  }
+  .radio_wrap1 {
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    vertical-align: middle;
+    border-radius: 50%;
+    border: 6px solid #999;
+    background-color: #ddd;
+  }
+  .label_wrap {
+    padding: 20px;
+    font-size: x-large;
+    font-weight: 800;
+    font-family:"Arial", "Tahoma", "微软雅黑", "雅黑";
+  }
+</style>
+
+<body>
+  <h1 align="center">
+    系统状态
+  </h1>
+  <div id="datetime" class="label_wrap">
+    <script>
+      setInterval("document.getElementById('datetime').innerHTML=new Date().toLocaleString();", 1000);
+    </script>
+  </div>
+  <br>
+  <input name="open_system" type="button" id="btn1" title="打开系统" value="打开系统" onclick="send('on')">
+  <br>
+  <input name="close_system" type="button" id="btn2" title="关闭系统" value="关闭系统" onclick="send('off')"/>
+  <br>
+  {% if message == "开" %}
+  <div id="div1">
+  <label class="label_wrap">
+    <input name="status" class="radio_wrap1" type="radio" id="btn3" title="系统开状态" value="系统状态：开" checked>系统状态：开 &nbsp &nbsp
+  </label>
+  <label class="label_wrap">
+    <input name="status" class="radio_wrap1" type="radio" id="btn4" title="系统关状态" value="系统状态：关" >系统状态：关
+  </label>
+  </div>
+  {% elif message == "关" %}
+  <div id="div1">
+  <label class="label_wrap">
+    <input name="status" class="radio_wrap1" type="radio" id="btn3" title="系统开状态" value="系统状态：开" >系统状态：开 &nbsp &nbsp
+  </label>
+  <label class="label_wrap">
+    <input name="status" class="radio_wrap1" type="radio" id="btn4" title="系统关状态" value="系统状态：关" checked>系统状态：关
+  </label>
+  </div>
+  {% endif %}
+
+  
+</body>
+
+</html>
+
+{% endblock %}
+{% block js%}
+  <script>
+    function getCookie(name) {
+        var cookieValue = null;
+        if (document.cookie && document.cookie != '') {
+            var cookies = document.cookie.split(';');
+            for (var i = 0; i < cookies.length; i++) {
+                var cookie = jQuery.trim(cookies[i]);
+                // Does this cookie string begin with the name we want?
+                if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+    var csrftoken = getCookie('csrftoken');
+
+    function csrfSafeMethod(method) {
+        // these HTTP methods do not require CSRF protection
+        return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+    }
+
+    $.ajaxSetup({
+            beforeSend: function(xhr, settings) {
+                if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                    xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                }
+            }
+        });
+    function send(a){
+      var sswitch = a;
+        var jsonData = {
+        'sswitch':sswitch,
+        }
+        $.post('/status/',jsonData);
+        if (a=="on"){
+          $("#btn3").prop("checked",true)
+          $("#btn4").attr("checked",false)
+        }
+        else if(a=="off"){
+          $("#btn3").prop("checked",false)
+          $("#btn4").prop("checked",true)
+        }
+    }
+    
+</script>
+{% endblock %}
