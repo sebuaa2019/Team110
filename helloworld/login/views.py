@@ -1,14 +1,14 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
-
 from . import models
 from .forms import UserForm, RegisterForm, EditForm, PswchangeForm
+from django.core.mail import send_mail
+
 # Create your views here.
 def info(request):
     if request.session.get('is_login', None):
         user = models.User.objects.get(name=request.session['user_name'])
         if request.method == "GET":
-            print("get")
             return render(request, "login/info.html", {"user": user})
     return redirect('/logout/')
 
@@ -124,7 +124,6 @@ def pswdchange(request):
         return redirect('/index/')
     if request.method=='POST':
         psw_form = PswchangeForm(request.POST)
-        message = "密码修改成功！"
         if psw_form.is_valid():
             origin_psw = psw_form.cleaned_data['password0']
             new_psw = psw_form.cleaned_data['password1']
@@ -136,6 +135,7 @@ def pswdchange(request):
                     if new_psw == confirm_psw:
                         user.password = new_psw
                         user.save()
+                        message = "密码修改成功！"
                     else:
                         message = "两次输入的密码不一致!"
                 else:
@@ -146,12 +146,12 @@ def pswdchange(request):
 
     psw_form = PswchangeForm()
     return render(request,'login/index.html',locals())
-    
+
 def panel(request):
     if not request.session.get('is_login', None):
         return redirect('/index/')
     return render(request,'login/panel.html')
-
+    
 def misreport(request):
     if not request.session.get('is_login', None):
         return redirect('/index/')
@@ -169,7 +169,7 @@ def misreport(request):
         try:
             subject = "报告错误:来自邮箱:" + mail_address +" 手机号: "+tel_num
             from_email = '978149308@qq.com'
-            to = 'feiyue978149308@gmail.com'
+            to = admin.mail
             send_mail(subject,report_message,from_email,[to])
             message = "错误提交成功"
             return render(request,'login/misreport.html',locals())
@@ -177,4 +177,19 @@ def misreport(request):
             message = "发送失败，请重新确认邮箱地址！"
             return render(request,'login/misreport.html',locals())
     return render(request,'login/misreport.html',locals())
+
+def status(request):
+    if not request.session.get('is_login', None):
+        return redirect('/index/')
+    sys_status = models.Syst.objects.get(name='sys')
+    if sys_status.status == 'on':
+        message = "开"
+    elif sys_status.status == 'off':
+        message = "关"
+    if request.method == 'POST':
+        state = request.POST['sswitch']
+        sys_status.status = sys_status
+        sys_status.save()
+        return render(request,'login/status.html',locals())
+    return render(request,'login/status.html',locals())
 
