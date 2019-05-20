@@ -120,6 +120,8 @@ def logout(request):
     return render(request, 'login/index.html', locals())
 
 def pswdchange(request):
+    if not request.session.get('is_login', None):
+        return redirect('/index/')
     if request.method=='POST':
         psw_form = PswchangeForm(request.POST)
         message = "密码修改成功！"
@@ -145,7 +147,14 @@ def pswdchange(request):
     psw_form = PswchangeForm()
     return render(request,'login/index.html',locals())
     
+def panel(request):
+    if not request.session.get('is_login', None):
+        return redirect('/index/')
+    return render(request,'login/panel.html')
+
 def misreport(request):
+    if not request.session.get('is_login', None):
+        return redirect('/index/')
     if request.method == 'POST':
         admin_name =  request.POST['admin_name']
         tel_num = request.POST['tel_num']           #用户手机
