@@ -181,7 +181,14 @@ def misreport(request):
 def status(request):
     if not request.session.get('is_login', None):
         return redirect('/index/')
+    s = socket.socket()
+    addr = ''       #要连接的家庭装置的所在公网Ip
+    port = 15535
+    s.connect((addr,port))
+    data = s.recv()
     sys_status = models.Syst.objects.get(name='sys')
+    s.send(sys_status)
+    s.close()
     if sys_status.status == 'on':
         message = "开"
     elif sys_status.status == 'off':
