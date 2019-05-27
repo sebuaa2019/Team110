@@ -4,6 +4,7 @@
 
 int switch_smoke_sensor = 1;
 int switch_invade_sensor = 1;
+int switch_tem_sensor=1;
 
 double get_smoke_concen(){
     return 50;
@@ -28,8 +29,8 @@ void modify_sensor_setting(){
     printf("5: ÍË³ö\n");
 
     /*scanf("%d",&id);*/
-    id = keyboard_single();    
-    
+    id = keyboard_single();
+
     switch(id)
     {
         case 1:{
@@ -75,19 +76,55 @@ int detect_smoke(){
 /*need basic sensor data to analyze*/
 /*return 0 means no smoke*/
     if(switch_smoke_sensor){
-	if(OnSmooke(0)>=smoke_limit&&OnSmooke(1)>=smoke_limit){
-		return 1;
-	}
-	else return 0;
+        if(OnSmooke(0)>=smoke_limit){
+            return 1;
+        }
+        if(OnSmooke(1)>=smoke_limit){
+            return 2;
+        }
     }
     else return 0;
+    return 0;
+}
+
+int detect_water(){
+
+    if(switch_smoke_sensor){
+        if(OnWater(0)){
+            return 1;
+        }
+        if(OnWater(1)){
+            return 2;
+        }
+    }
+    else return 0;
+    return 0;
 }
 
 int detect_invade(){
     if(switch_invade_sensor){
-	if(onMovement()) return 2;
-	else if(onDoor()) return 1;
-        else return 0;
+        if(OnMovement(0)){
+            return 1;
+        }
+        if(OnMovement(1)){
+            return 2;
+        }
+        if(Ondoor(0)){
+            return 3;
+        }
+        if(Ondoor(1)){
+            return 4;
+        }
     }
     else return 0;
+    return 0;
+}
+
+int detect_tem(){
+    if(switch_tem_sensor){
+        if(OnFire(0)>tem_limit) return 1;
+        if(OnFire(1)>tem_limit) return 2;
+    }
+    else return 0;
+    return 0;
 }

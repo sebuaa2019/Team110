@@ -23,7 +23,7 @@ int arm_sys()
      	while(count_down>0){
 		printf("还有%d秒开启系统\n",count_down);
 		taskDelay(60);
-		count_down-=1;	
+		count_down-=1;
 	}
 	if(task_open==0){
 		task=taskSpawn("task1",200,0,1000,(FUNCPTR)pthread_func,0,0,0,0,0,0,0,0,0,0);
@@ -36,7 +36,7 @@ int arm_sys()
 			SetLed(1,1); /*  redled */
 			task_open=1;
             		printf("系统成功打开\n");
-        	} 
+        	}
 	}
 	else{
 		SetLed(1,1); /*  redled */
@@ -59,49 +59,43 @@ void* pthread_func(void *arg)
     printf("系统正在运行中，可监视烟雾和入侵\n");
     for(;;){
         taskDelay(20);
-	if(sys_switch==1){
-		task_time+=5;
-		/*printf("系统正在运行中，已启动%d秒\n",task_time);*/
-		/*
-		if(detect_smoke() == 1){
-			react(0);
-		}
-		if(detect_invade() == 1){
-			taskDelay(code_delay*60);
-			judge_offence(sys_switch);	
-		}
-		else if(detect_invade() == 2){
-			react(2);
-		}*/
-		if(Ondoor(0))
-			SetCall("13601161971",0,0);
+        if(sys_switch==1){
+            task_time+=5;
+            /*printf("系统正在运行中，已启动%d秒\n",task_time);*/
+            if(detect_smoke() == 1){
+                react(0,0);
+            }
+            if(detect_smoke() == 2){
+                react(0,1);
+            }
+            if(detect_invade() == 1){
+                taskDelay(code_delay*60);
+                judge_offence(sys_switch,0);
+            }
+            if(detect_invade() == 2){
+                taskDelay(code_delay*60);
+                judge_offence(sys_switch,1);
+            }
+            if(detect_invade() == 3){
+                react(2,0);
+            }
+            if(detect_invade() == 4){
+                react(2,1);
+            }
+            if(detect_water() == 1){
+                react(3,0);
+            }
+            if(detect_water() == 2){
+                react(3,1);
+            }
+            if(detect_tem() == 1){
+                react(4,0);
+            }
+            if(detect_tem() == 2){
+                react(4,1);
+            }
 
-		if(Ondoor(1))
-			SetCall("13600000000",1,1);
-
-		if(OnMovement(0))
-			SetCall("13601161971",0,0);
-		if(OnMovement(1))
-			SetCall("13600000000",1,1);
-
-		if(OnWater(0))
-			SetCall("13601161971",0,0);
-		if(OnWater(1))
-			SetCall("13600000000",1,1);
-
-
-		if(OnFire(0)>70)
-			SetCall("13601161971",0,0);
-		if(OnFire(1)>70)
-			SetCall("13600000000",1,1);
-
-
-		if(OnSmooke(0)>50)
-			SetCall("13601161971",0,0);
-
-		if(OnSmooke(1)>50)
-			SetCall("13600000000",1,1);
-	}
+        }
     }
 
     return NULL;
