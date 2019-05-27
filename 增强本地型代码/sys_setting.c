@@ -17,6 +17,7 @@ void init_sys(){
 		fprintf(code,"15\n");
 		fprintf(code,"80\n");
 		fprintf(code,"10\n");
+		fprintf(code,"45\n");
         	fclose(code);
 	}
 	setall = fopen("settings","r");
@@ -29,6 +30,7 @@ void init_sys(){
 
 	fgets(setting,20,setall);
     	setting[strlen(setting)-1] = '\0';
+	strcpy(call_phone,setting);
 
 	fgets(setting,20,setall);
     	setting[strlen(setting)-1] = '\0';
@@ -42,6 +44,10 @@ void init_sys(){
     	setting[strlen(setting)-1] = '\0';
 	start_delay = atoi(setting);
 	
+	fgets(setting,20,setall);
+    	setting[strlen(setting)-1] = '\0';
+	tem_limit = atoi(setting);
+
 	fclose(setall);	
 }
 
@@ -54,7 +60,9 @@ void modify_settings(){
     printf("4: 修改主人输密码时长\n");
     printf("5: 修改烟雾浓度阈值\n");
     printf("6: 修改开启系统时延\n");
-    printf("7: 放弃修改\n");
+    printf("7: 修改温度阈值\n");
+    printf("8: 查看所有设置项目\n");
+    printf("9: 放弃修改\n");
     /*scanf("%d",&choice);*/
     choice = keyboard_single();
     switch(choice){
@@ -77,8 +85,34 @@ void modify_settings(){
 	    modify_startdelay();
 	    break;
 	case 7:
+	    modify_tem_limit();
+	    break;
+	case 8:
+	    show_all();
+	    break;
+	case 9:
 	    break;
     }
+}
+
+void show_all(){
+	char need[20];
+	FILE *setting;
+	setting = fopen("settings","r");
+	fgets(need,20,setting);
+	fgets(need,20,setting);
+	printf("当前报警间隔为(单位：s)：%s",need);
+	fgets(need,20,setting);
+	printf("当前报警电话为：%s",need);
+	fgets(need,20,setting);
+	printf("当前输密码时长为：%s",need);
+	fgets(need,20,setting);
+	printf("当前烟雾浓度阈值为：%s",need);
+	fgets(need,20,setting);
+	printf("当前系统开启时延：%s",need);
+	fgets(need,20,setting);
+	printf("当前温度阈值：%s",need);
+	fclose(setting);
 }
 
 void change_code(){
@@ -111,6 +145,7 @@ void write_new_code(){
     char line4[20];
     char line5[20];
     char line6[20];
+    char line7[20];
     printf("请输入新密码：");
     /*scanf("%s",once);*/
     strcpy(once,keyboard_code());
@@ -128,6 +163,7 @@ void write_new_code(){
 	fgets(line4,20,codein);
 	fgets(line5,20,codein);
 	fgets(line6,20,codein);
+	fgets(line7,20,codein);
 	fclose(codein);
 
 	codeout = fopen("settings","w");	
@@ -137,7 +173,8 @@ void write_new_code(){
 	fprintf(codeout,"%s",line4);
 	fprintf(codeout,"%s",line5);
 	fprintf(codeout,"%s",line6);	
-        fclose(codeout);
+ 	fprintf(codeout,"%s",line7);       
+	fclose(codeout);
 	
         printf("修改密码成功！\n");
     }
@@ -154,6 +191,7 @@ void modify_delay(){
     char line4[20];
     char line5[20];
     char line6[20];
+    char line7[20];
 
 	FILE *codein;
         FILE *codeout;
@@ -165,6 +203,7 @@ void modify_delay(){
 	fgets(line4,20,codein);
 	fgets(line5,20,codein);
 	fgets(line6,20,codein);
+	fgets(line7,20,codein);
 	fclose(codein);
 
 	printf("当前报警间隔为(单位：s)：%s",line2);
@@ -179,7 +218,8 @@ void modify_delay(){
 	fprintf(codeout,"%s",line4);
 	fprintf(codeout,"%s",line5);
 	fprintf(codeout,"%s",line6);
-        fclose(codeout);
+ 	fprintf(codeout,"%s",line7);       
+	fclose(codeout);
 	
         printf("修改间隔成功！\n");
 
@@ -193,6 +233,7 @@ void modify_phonenum(){
     char line4[20];
     char line5[20];
     char line6[20];
+    char line7[20];
 
 	FILE *codein;
         FILE *codeout;
@@ -204,12 +245,14 @@ void modify_phonenum(){
 	fgets(line4,20,codein);
 	fgets(line5,20,codein);
 	fgets(line6,20,codein);
+	fgets(line7,20,codein);
 	fclose(codein);
 
 	printf("当前报警电话为：%s",line3);
 	printf("请输入新报警电话：");
 	/*scanf("%s",once);*/
 	strcpy(once,keyboard_long());
+	strcpy(call_phone,once);
 
 	codeout = fopen("settings","w");	
         fprintf(codeout,"%s",line1);
@@ -218,7 +261,8 @@ void modify_phonenum(){
 	fprintf(codeout,"%s",line4);
 	fprintf(codeout,"%s",line5);
 	fprintf(codeout,"%s",line6);
-        fclose(codeout);
+ 	fprintf(codeout,"%s",line7);       
+	fclose(codeout);
 	
         printf("修改电话成功！\n");
 }
@@ -231,6 +275,7 @@ void modify_codedelay(){
     char line4[20];
     char line5[20];
     char line6[20];
+    char line7[20];
 
 	FILE *codein;
         FILE *codeout;
@@ -242,6 +287,7 @@ void modify_codedelay(){
 	fgets(line4,20,codein);
 	fgets(line5,20,codein);
 	fgets(line6,20,codein);
+	fgets(line7,20,codein);
 	fclose(codein);
 
 	printf("当前输密码时长为：%s",line4);
@@ -256,6 +302,7 @@ void modify_codedelay(){
 	fprintf(codeout,"%s\n",once);
 	fprintf(codeout,"%s",line5);
 	fprintf(codeout,"%s",line6);
+	fprintf(codeout,"%s",line7);
         fclose(codeout);
 	
         printf("修改成功！\n");
@@ -269,6 +316,7 @@ void modify_smokelimit(){
     char line4[20];
     char line5[20];
     char line6[20];
+    char line7[20];
 
 	FILE *codein;
         FILE *codeout;
@@ -280,6 +328,7 @@ void modify_smokelimit(){
 	fgets(line4,20,codein);
 	fgets(line5,20,codein);
 	fgets(line6,20,codein);
+	fgets(line7,20,codein);
 	fclose(codein);
 
 	printf("当前烟雾浓度阈值为：%s",line5);
@@ -294,6 +343,7 @@ void modify_smokelimit(){
 	fprintf(codeout,"%s",line4);
 	fprintf(codeout,"%s\n",once);
 	fprintf(codeout,"%s",line6);
+	fprintf(codeout,"%s",line7);
         fclose(codeout);
 	
         printf("修改成功！\n");
@@ -307,6 +357,7 @@ void modify_startdelay(){
     char line4[20];
     char line5[20];
     char line6[20];
+    char line7[20];
 
 	FILE *codein;
         FILE *codeout;
@@ -318,6 +369,7 @@ void modify_startdelay(){
 	fgets(line4,20,codein);
 	fgets(line5,20,codein);
 	fgets(line6,20,codein);
+	fgets(line7,20,codein);
 	fclose(codein);
 
 	printf("当前系统开启时延：%s",line6);
@@ -331,6 +383,48 @@ void modify_startdelay(){
 	fprintf(codeout,"%s",line3);
 	fprintf(codeout,"%s",line4);
 	fprintf(codeout,"%s",line5);
+	fprintf(codeout,"%s\n",once);
+	fprintf(codeout,"%s",line7);
+        fclose(codeout);
+	
+        printf("修改成功！\n");
+}
+
+void modify_tem_limit(){
+    char once[10];
+    char line1[20];
+    char line2[20];
+    char line3[20];
+    char line4[20];
+    char line5[20];
+    char line6[20];
+    char line7[20];
+
+	FILE *codein;
+        FILE *codeout;
+
+        codein = fopen("settings","r");
+	fgets(line1,20,codein);
+	fgets(line2,20,codein);
+	fgets(line3,20,codein);
+	fgets(line4,20,codein);
+	fgets(line5,20,codein);
+	fgets(line6,20,codein);
+	fgets(line7,20,codein);
+	fclose(codein);
+
+	printf("当前温度阈值：%s",line7);
+	printf("请输入新阈值：");
+	strcpy(once,keyboard_long());
+	tem_limit = atoi(once);
+
+	codeout = fopen("settings","w");	
+        fprintf(codeout,"%s",line1);
+	fprintf(codeout,"%s",line2);
+	fprintf(codeout,"%s",line3);
+	fprintf(codeout,"%s",line4);
+	fprintf(codeout,"%s",line5);
+	fprintf(codeout,"%s",line6);
 	fprintf(codeout,"%s\n",once);
         fclose(codeout);
 	
