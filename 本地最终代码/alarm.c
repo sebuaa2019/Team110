@@ -1,0 +1,63 @@
+#include <stdio.h>
+#include "sys_setting.h"
+
+void react(int type,int loc){
+	
+	switch(type){
+		case 0:
+		    if(loc==0){
+                SetCall(call_phone,2,0);
+                printf("检测到厨房烟雾浓度超标\n");
+		    }
+		    else if(loc==1){
+                SetCall(call_phone,2,1);
+                printf("检测到客厅烟雾浓度超标\n");
+		    }
+			break;
+		case 1:
+		    if(loc==0){
+                SetCall(call_phone,0,0);
+                printf("未及时输入密码，判为厨房恶意入侵\n");
+		    }
+		    else if(loc==1){
+                SetCall(call_phone,0,1);
+                printf("未及时输入密码，判为客厅恶意入侵\n");
+		    }
+			break;
+	case 2:
+		    if(loc==0){
+                SetCall(call_phone,0,0);
+                printf("厨房恶意入侵\n");
+		    }
+		    else if(loc==1){
+                SetCall(call_phone,0,1);
+                printf("客厅恶意入侵\n");
+		    }
+			break;
+        case 3:
+		    if(loc==0){
+                SetCall(call_phone,1,0);
+                printf("厨房水浸\n");
+		    }
+		    else if(loc==1){
+                SetCall(call_phone,1,1);
+                printf("客厅水浸\n");
+		    }
+			break;
+	}
+
+}
+
+void judge_offence(int switch_judge, int loc){
+	if(switch_judge == 1){
+        if(loc==0){
+            react(1,0);
+        }
+        else{
+            react(1,1);
+        }
+	}
+}
+
+
+
